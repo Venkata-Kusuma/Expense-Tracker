@@ -23,12 +23,6 @@ namespace Expense_Tracker.Pages.Expenses
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
-
-            if (user == null)
-            {
-                return Challenge(); 
-            }
-
             Expenses = await _context.Expenses
                 .Where(e => e.AppUserId == user.Id)
                 .OrderByDescending(e => e.CreatedAt)

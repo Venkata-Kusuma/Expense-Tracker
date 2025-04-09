@@ -26,11 +26,7 @@ namespace Expense_Tracker.Pages.Expenses
         {
             var user = await _userManager.GetUserAsync(User);
 
-            if (user == null)
-            {
-                return Challenge(); 
-            }
-
+           
             var data = await _context.Expenses
                 .Where(e => e.AppUserId == user.Id && !string.IsNullOrEmpty(e.Category))
                 .GroupBy(e => e.Category)
