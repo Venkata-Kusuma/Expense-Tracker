@@ -1,0 +1,37 @@
+﻿@page
+@model Expense_Tracker.Pages.Expenses.AddModel
+
+@{
+    ViewData["Title"] = "Add New Expense";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="card shadow-lg p-4" style="max-width: 500px; width: 100%;">
+        <h2 class="text-center mb-4">Add New Expense</h2>
+        <form method="post">
+            <div class="form-floating mb-3">
+                <input asp-for="Expense.Category" class="form-control" id="category" placeholder="Category" />
+                <label for="category">Category</label>
+                <span asp-validation-for="Expense.Category" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Expense.Amount" type="number" class="form-control" id="amount" placeholder="Amount" />
+                <label for="amount">Amount</label>
+                <span asp-validation-for="Expense.Amount" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <textarea asp-for="Expense.Comments" class="form-control" id="comments" placeholder="Comments" style="height: 150px;"></textarea>
+                <label for="comments">Comments</label>
+                <span asp-validation-for="Expense.Comments" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Save</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

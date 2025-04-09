@@ -1,0 +1,46 @@
+﻿@page
+@model Expense_Tracker.Pages.Expenses.ChartsModel
+@{
+    ViewData["Title"] = "Expense Chart";
+}
+
+<h2 class="text-center mt-4">Expense by Category</h2>
+
+<div style="max-width: 500px; margin: auto;">
+    <canvas id="simpleChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const chartData = @Html.Raw(Model.CategoryDataJson);
+
+    if (chartData && chartData.length > 0) {
+        const labels = chartData.map(item => item.Category ?? 'Unknown');
+        const data = chartData.map(item => item.Total);
+
+        const ctx = document.getElementById('simpleChart').getContext('2d');
+
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Amount Spent',
+                    data: data,
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    } else {
+        document.getElementById('simpleChart').parentElement.innerHTML =
+            "<p class='text-center text-danger'>No data available.</p>";
+    }
+</script>
